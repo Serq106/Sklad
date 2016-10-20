@@ -25,10 +25,47 @@
 	</bean>
 
 
+	<!--заведем себе в Springe свои источник данных -->
+	<bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/bookmanager" />
+		<property name="username" value="root" />
+		<property name="password" value="a75130371997rospu" />
+	</bean>
 
 
 
 
+
+	<!-- подключим HIBERNATE -->
+	<bean id="hibernate"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+
+		<property name="annotatedClasses">
+			<list>
+				<value>by.ntck.sten.model.Book</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
+	<!--отдаём управление транзакциями СПРИНГУ) -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!--опишем менеджер транзакций -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernate" />
+	</bean>
 
 
 	<!--здесь будем описывать бины(у тебя модели) -->
