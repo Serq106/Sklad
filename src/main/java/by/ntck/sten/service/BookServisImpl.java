@@ -2,29 +2,32 @@ package by.ntck.sten.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import by.ntck.sten.interfaces.BookDao;
 import by.ntck.sten.interfaces.BookService;
 import by.ntck.sten.model.Book;
 
+@Service
 @Transactional
 public class BookServisImpl implements BookService {
-	private BookDao bookDao;
+	private BookDao dao;
 
-	public void setBookDao(BookDao bookDao) {
-		this.bookDao = bookDao;
+	public void setDao(BookDao bookDao) {
+		this.dao = bookDao;
+
 	}
 
 	@Override
 	public void addBook(Book book) {
-		this.bookDao.addBook(book);
+		this.dao.addBook(book);
 
 	}
 
 	@Override
 	public void updateBook(Book book) {
-		this.bookDao.updateBook(book);
+		this.dao.updateBook(book);
 	}
 
 	@Override
@@ -34,13 +37,13 @@ public class BookServisImpl implements BookService {
 
 	@Override
 	public Book getBookById(int id) {
-		return this.bookDao.getBookById(id);
+		return this.dao.getBookById(id);
 	}
 
 	@Override
 	public List<Book> listBooks() {
 
-		return this.bookDao.listBooks();
+		return this.dao.listBooks();
 	}
 
 }

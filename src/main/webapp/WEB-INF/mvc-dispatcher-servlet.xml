@@ -69,7 +69,12 @@
 
 
 	<!--здесь будем описывать бины(у тебя модели) -->
-
+	<bean id="bookDAO" class="by.ntck.sten.dao.BookDaoImpl">
+		<property name="sessionFactory" ref="hibernate" />
+	</bean>
+	<bean id="bookService" class="by.ntck.sten.service.BookServisImpl">
+		<property name="dao" ref="bookDAO" />
+	</bean>
 
 
 
