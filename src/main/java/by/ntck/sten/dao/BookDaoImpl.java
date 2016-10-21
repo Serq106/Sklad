@@ -13,7 +13,7 @@ import by.ntck.sten.model.Book;
 
 @Repository
 public class BookDaoImpl implements BookDao {
-	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BookDaoImpl.class);
 
 	private SessionFactory sessionFactory;
 
@@ -25,7 +25,7 @@ public class BookDaoImpl implements BookDao {
 	public void addBook(Book book) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(book);
-		logger.info("Book successfully saved. Book details: " + book);
+		LOG.info("Book successfully saved. Book details: " + book);
 
 	}
 
@@ -33,7 +33,7 @@ public class BookDaoImpl implements BookDao {
 	public void updateBook(Book book) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(book);
-		logger.info("Book successfully update. Book details: " + book);
+		LOG.info("Book successfully update. Book details: " + book);
 
 	}
 
@@ -45,7 +45,7 @@ public class BookDaoImpl implements BookDao {
 		if (book != null) {
 			session.delete(book);
 		}
-		logger.info("Book successfully removed. Book details: " + book);
+		LOG.info("Book successfully removed. Book details: " + book);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class BookDaoImpl implements BookDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Book book = (Book) session.load(Book.class, new Integer(id));
 
-		logger.info("Book successfully loaded. Book detalis: " + book);
+		LOG.info("Book successfully loaded. Book detalis: " + book);
 		return null;
 	}
 
@@ -61,11 +61,11 @@ public class BookDaoImpl implements BookDao {
 	@SuppressWarnings("unchecked")
 	public List<Book> listBooks() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Book> bookList = session.createQuery("from Book").list();
+		List<Book> bookList = (List<Book>) session.createQuery("from Book").list();
 
 		for (Book book : bookList) {
-			logger.info("Book list: " + book);
-		}
+			LOG.info("Book list: " + book);
+		} //
 
 		return bookList;
 	}
